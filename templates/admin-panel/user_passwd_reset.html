@@ -1,0 +1,15 @@
+{% extends 'admin-panel/admin_users_main.html' %}
+
+{% block title %}Change Password{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Зміна пароля для {{ user.username }}</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Зберігти</button>
+        <a href="{% url 'users_list' %}" class="btn btn-secondary">Відмінити</a>
+    </form>
+</div>
+{% endblock %}

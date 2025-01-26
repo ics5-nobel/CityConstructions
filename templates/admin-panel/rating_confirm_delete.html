@@ -1,0 +1,13 @@
+{% extends 'admin-panel/admin_rating_main.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Видалення рейтингу</h1>
+    <p>Ви дійсно бажаєти видалити {{ rating.user }}`s рейтинг для {{ rating.sport_structure }} який складає "{{ rating.rating }}"</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Так</button>
+        <a href="{% url 'ratings_list' %}" class="btn btn-secondary">Ні</a>
+    </form>
+</div>
+{% endblock %}

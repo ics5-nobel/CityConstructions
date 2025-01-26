@@ -1,0 +1,62 @@
+{% extends 'admin-panel/admin_constructions_main.html' %}
+
+{% block title %}{{ structure.name }} - Підприємство{% endblock %}
+
+{% block content %}
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">{{ structure.name }}</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Left Column: Information -->
+                <div class="col-md-6">
+                    <p><strong>Район:</strong> {{ structure.category.name }}</p>
+                    <p><strong>Адреса:</strong> {{ structure.address }}</p>
+                    <p><strong>Послуги:</strong>
+                        {% for tag in structure.tags.all %}
+                            <span class="badge bg-secondary">{{ tag.name }}</span>
+                        {% endfor %}
+                    </p>
+                    <p><strong>Рейтинг:</strong> {{ structure.rating }} / 5</p>
+                    <p><strong>Опис:</strong></p>
+                    <p>{{ structure.description }}</p>
+
+
+                </div>
+
+                <!-- Right Column: Images -->
+                <div class="col-md-6">
+                    <h5>Зображення</h5>
+                    {% if structure.images.all %}
+                        <div class="row row-cols-1 row-cols-md-2 g-2">
+                            {% for image in structure.images.all %}
+                                <div class="col">
+                                    <div class="card">
+                                        <img src="{{ image.image.url }}" class="card-img-top"
+                                             alt="Image of {{ structure.name }}">
+                                        {% if image.description %}
+                                            <div class="card-body">
+                                                <p class="card-text">{{ image.description }}</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>Немає зображення</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="mt-4">
+                <a href="{% url 'construction-update' structure.pk %}" class="btn btn-warning"><i class="fas fa-edit"></i>
+                    Редагувати</a>
+                <a href="{% url 'construction-delete' structure.pk %}" class="btn btn-danger"><i class="fas fa-trash"></i>
+                    Видалити</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

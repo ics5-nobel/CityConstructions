@@ -1,0 +1,21 @@
+{% extends 'admin-panel/admin_constructions_main.html' %}
+
+{% block title %}{{ form_title }} - Підприємство{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">{{ form_title }}</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'constructions-list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Назад</a>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Зберегти</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

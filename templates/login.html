@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+
+{% block title %}АЛЕФ - Вхід{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <!-- Section: Design Block -->
+        <section class=" text-center text-lg-start">
+            <style>
+                .rounded-t-5 {
+                    border-top-left-radius: 0.5rem;
+                    border-top-right-radius: 0.5rem;
+                }
+
+                @media (min-width: 992px) {
+                    .rounded-tr-lg-0 {
+                        border-top-right-radius: 0;
+                    }
+
+                    .rounded-bl-lg-5 {
+                        border-bottom-left-radius: 0.5rem;
+                    }
+                }
+            </style>
+            <div class="card mb-3">
+                <div class="row g-0 d-flex align-items-center">
+                    <div class="col-lg-4 d-none d-lg-flex">
+                        <img src="https://www.russell-roofing.co.uk/wp-content/uploads/2023/06/Will-Wyatt-Court-Student-Accommodation-London-1-600x800px.jpg"
+                             alt="login"
+                             class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5"/>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card-body py-5 px-md-5">
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <!-- Email input -->
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <label class="form-label" for="form2Example1">Ім'я користувача</label>
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                </div>
+
+                                <!-- Password input -->
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <label class="form-label" for="form2Example2">Пароль</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+
+                                <!-- 2 column grid layout for inline styling -->
+                                <div class="row mb-4">
+                                    <div class="col d-flex justify-content-center">
+                                    </div>
+
+                                    <!-- Submit button -->
+                                    <button type="submit" data-mdb-button-init data-mdb-ripple-init
+                                            class="btn btn-primary btn-block mb-4">Вхід
+                                    </button>
+
+                                </div>
+                            </form>
+                            <p class="mt-3 text-center">
+                                Немає аккаунта? <a href="{% url 'signup' %}">Зареєструйтесь</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Section: Design Block -->
+        <div class="mt-5"></div>
+{% endblock %}

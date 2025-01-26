@@ -1,0 +1,13 @@
+{% extends 'admin-panel/admin_rating_main.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Рейтинг</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">{{ action }}</button>
+        <a href="{% url 'ratings_list' %}" class="btn btn-secondary">Ні</a>
+    </form>
+</div>
+{% endblock %}

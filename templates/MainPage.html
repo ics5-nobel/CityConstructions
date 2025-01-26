@@ -1,0 +1,178 @@
+{% extends 'main.html' %}
+
+{% block title %}АЛЕФ - Каталог будівельників{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .feature-card-text {
+            min-height: 60px;
+        }
+
+        .cta-section {
+            background-color: #f8f9fa;
+            padding: 3rem 0;
+        }
+
+        .carousel-item img {
+            min-height: 500px;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 1rem;
+            right: 0;
+            left: 0;
+        }
+
+        .carousel.slide.mt-5 {
+            margin-top: 0;
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: .75rem;
+        }
+
+        .icon-square {
+            width: 3rem;
+            height: 3rem;
+            border-radius: .75rem;
+        }
+
+        .text-shadow-1 {
+            text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .25);
+        }
+
+        .text-shadow-2 {
+            text-shadow: 0 .25rem .5rem rgba(0, 0, 0, .25);
+        }
+
+        .text-shadow-3 {
+            text-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .25);
+        }
+
+        .card-cover {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        .feature-icon-small {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+
+
+    <!-- Features Section -->
+    <div class="container text-center mt-5">
+
+        <!-- Carousel Section -->
+        <div class="px-4 py-5 my-5 text-center" bis_skin_checked="1">
+            <img class="d-block mx-auto mb-4" src="https://img.lunstatic.net/company-600x300/1667.jpg" alt=""
+                 width="200" height="100">
+            <h1 class="display-5 fw-bold text-body-emphasis">Будівельники твого міста</h1>
+            <div class="col-lg-6 mx-auto" bis_skin_checked="1">
+                <p class="lead mb-4">Наш каталог будівельних підприємств створений спеціально для того, щоб переглянути
+                    найкращі пропозиції і обрати підприємство під свої вимоги. Більше не доведеться втрачати час та
+                    гроші. Вся інформація в одному місці</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center" bis_skin_checked="1">
+                    <a href="{% url 'catalogue' %}" type="button" class="btn btn-primary btn-lg px-4 gap-3">Каталог</a>
+                    <a href="{% url 'profile' %}" type="button" class="btn btn-outline-secondary btn-lg px-4">Увійти</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5"></div>
+
+
+        <div class="container px-4 py-5" id="custom-cards" bis_skin_checked="1">
+            <h2 class="pb-2 border-bottom">Популярні</h2>
+
+            <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5" bis_skin_checked="1">
+                <div class="col" bis_skin_checked="1">
+                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                         style="background-image: url('https://glavnoe.dp.ua/wp-content/uploads/2021/04/balka.jpg');"
+                         bis_skin_checked="1">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1" bis_skin_checked="1">
+                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Будівельна компанія "Доминанта"</h3>
+                            <ul class="d-flex list-unstyled mt-auto">
+                                <li class="me-auto">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/2667/2667975.png" alt="Maps"
+                                         width="32" height="32" class="rounded-circle border border-white">
+                                </li>
+                                <li class="d-flex align-items-center me-3">
+                                    <svg class="bi me-2" width="1em" height="1em">
+                                        <use xlink:href="#geo-fill"></use>
+                                    </svg>
+                                    <small>вул. Старокозацька, 11</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" bis_skin_checked="1">
+                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                         style="background-image: url('https://dnipro.tv/wp-content/uploads/2024/01/arkhytektura3-993x662-1.jpg');"
+                         bis_skin_checked="1">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1" bis_skin_checked="1">
+                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Будівельна компанія "SKD Ukraine"</h3>
+                            <ul class="d-flex list-unstyled mt-auto">
+                                <li class="me-auto">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/2667/2667975.png" alt="Maps"
+                                         width="32" height="32" class="rounded-circle border border-white">
+                                </li>
+                                <li class="d-flex align-items-center me-3">
+                                    <svg class="bi me-2" width="1em" height="1em">
+                                        <use xlink:href="#geo-fill"></use>
+                                    </svg>
+                                    <small>вул. Лазаряна, 10</small>
+                                </li>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" bis_skin_checked="1">
+                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                         style="background-image: url('https://dnipro.depo.ua/uploads/posts/20220204/750x/ou0F7NkdahpbZith8IJ2gArS94BRaPpHMZa9FXrY.jpeg');"
+                         bis_skin_checked="1">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1" bis_skin_checked="1">
+                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Будівельна компанія "Перспектива"</h3>
+                            <ul class="d-flex list-unstyled mt-auto">
+                                <li class="me-auto">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/2667/2667975.png" alt="Maps"
+                                         width="32" height="32" class="rounded-circle border border-white">
+                                </li>
+                                <li class="d-flex align-items-center me-3">
+                                    <svg class="bi me-2" width="1em" height="1em">
+                                        <use xlink:href="#geo-fill"></use>
+                                    </svg>
+                                    <small>вул. В.Вернадського, 35б</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

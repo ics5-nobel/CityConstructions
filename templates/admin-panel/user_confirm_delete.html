@@ -1,0 +1,13 @@
+{% extends 'admin-panel/admin_users_main.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Видалення користувача</h1>
+    <p>Ви дійсно бажаєти видалити користувача "{{ user.username }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Так</button>
+        <a href="{% url 'users_list' %}" class="btn btn-secondary">Ні</a>
+    </form>
+</div>
+{% endblock %}

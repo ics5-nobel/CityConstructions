@@ -1,0 +1,250 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+    <style>
+        .carousel-item img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+    </style>
+
+
+    <div class="container my-5">
+        <!-- Structure Name -->
+        <h1 class="mb-4 display-5 fw-bold text-dark">{{ structure.name }}</h1>
+
+        <div class="row g-5">
+            <!-- Left Column: Structure Info & Rating -->
+            <div class="col-md-6">
+                <!-- Structure Info Card -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="my-1">Підприємство</h4>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Район:</strong> {{ structure.category.name }}</p>
+                        <p><strong>Адреса:</strong> {{ structure.address }}</p>
+                        <p><strong>Послуги:</strong>
+                            {% if structure.tags.all %}
+                                {% for tag in structure.tags.all %}
+                                    <span class="badge bg-secondary">{{ tag.name }}</span>
+                                {% endfor %}
+                            {% else %}
+                                No tags
+                            {% endif %}
+                        </p>
+                        <p><strong>Опис:</strong> {{ structure.description }}</p>
+
+                        <!-- Display Average Rating as Stars with a badge for the number -->
+                        {% if average_rating %}
+                            <p><strong>Рейтинг:</strong>
+                                {% with avg=average_rating|floatformat:1 %}
+                                    {% for i in "12345" %}
+                                        {% if i <= avg|floatformat:0 %}
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                        {% else %}
+                                            <i class="bi bi-star text-secondary"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <span class="badge bg-light text-dark border ms-2">{{ avg }} / 5</span>
+                                {% endwith %}
+                            </p>
+                        {% else %}
+                            <p><strong>Рейтинг:</strong> Немає</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Rating Form Card -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h4 class="my-1">Оцінити</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if user.is_authenticated %}
+                            <form method="post" class="mb-3">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Ваш рейтинг:</label>
+                                    <div class="star-rating d-inline-block"
+                                         data-initial-rating="{{ rating_form.initial.rating|default:"0" }}">
+                                        <input type="radio" name="rating" id="star1" value="1" class="d-none"
+                                               {% if rating_form.initial.rating == 1 %}checked{% endif %}>
+                                        <label for="star1" class="star-label" data-value="1"><i
+                                                class="bi bi-star"></i></label>
+
+                                        <input type="radio" name="rating" id="star2" value="2" class="d-none"
+                                               {% if rating_form.initial.rating == 2 %}checked{% endif %}>
+                                        <label for="star2" class="star-label" data-value="2"><i
+                                                class="bi bi-star"></i></label>
+
+                                        <input type="radio" name="rating" id="star3" value="3" class="d-none"
+                                               {% if rating_form.initial.rating == 3 %}checked{% endif %}>
+                                        <label for="star3" class="star-label" data-value="3"><i
+                                                class="bi bi-star"></i></label>
+
+                                        <input type="radio" name="rating" id="star4" value="4" class="d-none"
+                                               {% if rating_form.initial.rating == 4 %}checked{% endif %}>
+                                        <label for="star4" class="star-label" data-value="4"><i
+                                                class="bi bi-star"></i></label>
+
+                                        <input type="radio" name="rating" id="star5" value="5" class="d-none"
+                                               {% if rating_form.initial.rating == 5 %}checked{% endif %}>
+                                        <label for="star5" class="star-label" data-value="5"><i
+                                                class="bi bi-star"></i></label>
+                                    </div>
+                                </div>
+                                <button type="submit" name="rating_submit" class="btn btn-primary">Зберегти
+                                </button>
+                            </form>
+                        {% else %}
+                            <p><a href="{% url 'login' %}">Увійдіть</a> щоб оцінити.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Image Carousel -->
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h4 class="my-1">Зображення</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if images %}
+                            <div id="structureCarousel" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    {% for image in images %}
+                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            <img src="{{ image.image.url }}" class="d-block w-100 rounded"
+                                                 alt="{{ image.description }}">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% if images|length > 1 %}
+                                    <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#structureCarousel" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                            data-bs-target="#structureCarousel" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Немає зображення.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Pagination controls -->
+        <nav aria-label="Comments pagination" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                {% endif %}
+
+                {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+
+    {% block extra_js %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const starLabels = document.querySelectorAll('.star-label');
+                const starRating = document.querySelector('.star-rating');
+                const initialRating = parseInt(starRating.getAttribute('data-initial-rating')) || 0;
+
+                // Initial stars
+                if (initialRating > 0) {
+                    for (let i = 0; i < initialRating; i++) {
+                        starLabels[i].classList.add('selected');
+                    }
+                }
+
+                starLabels.forEach(label => {
+                    // Hover effect
+                    label.addEventListener('mouseover', function () {
+                        const hoverValue = parseInt(this.getAttribute('data-value'));
+                        starLabels.forEach(l => l.classList.remove('hovered'));
+                        for (let i = 0; i < hoverValue; i++) {
+                            starLabels[i].classList.add('hovered');
+                        }
+                    });
+
+                    // Click (selection) effect
+                    label.addEventListener('click', function () {
+                        const selectValue = parseInt(this.getAttribute('data-value'));
+                        starLabels.forEach(l => l.classList.remove('selected'));
+                        for (let i = 0; i < selectValue; i++) {
+                            starLabels[i].classList.add('selected');
+                        }
+                    });
+                });
+
+                // On mouse leave, remove only hovered, keep selected as is
+                starRating.addEventListener('mouseleave', function () {
+                    starLabels.forEach(l => l.classList.remove('hovered'));
+                });
+            });
+        </script>
+
+        <style>
+            .star-label i {
+                font-size: 1.5rem;
+                color: #ccc;
+                cursor: pointer;
+                transition: color 0.2s;
+                margin-right: 0.2rem;
+            }
+
+            /* When hovered or selected, change the star color to gold */
+            .star-label.hovered i,
+            .star-label.selected i {
+                color: #ffc107;
+            }
+
+            {#    TODO: Refactor this, needs readability#}
+        </style>
+    {% endblock %}
+{% endblock %}
+</div>
